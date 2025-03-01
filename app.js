@@ -1,4 +1,5 @@
 const express = require("express");
+const {OpenAI} =require("openai");
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
@@ -11,60 +12,57 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
 
-main().then(() => {
-    console.log("connection successfuly");
-}).catch((err) => {
-    console.log(err);
-});
-
-async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/scam-call")
-};
+const openai = new OpenAI({
+    apiKey: "Open_ai_api",
+  });
+  
+  
 
 
-// const stdSchema = mongoose.Schema({
-
-//     email: {
-//         type: String,
-
-//         maxLength: 50,
-//     },
-//     name: {
-//         type: String,
-
-//     },
-//     phone_no: {
-//         type: Number,
-//         required: true,
-//         //min:[1,"prise is to low "],       -this is used to print custome errors usig aray
-//     },
-//     colledge_name: {
-
-//         type: String,
-//     },
-//     address: {
-//         type: String,
-//         //emum is array wich allow accept value only if in this present.
-//     },
-//     trade: {
-//         type: String,
-//     }
-
+// main().then(() => {
+//     console.log("connection successfuly");
+// }).catch((err) => {
+//     console.log(err);
 // });
 
-
-// const Std_Data = mongoose.model("Std_Data", stdSchema);
-
-
-
-//let count = 0;
-
+// async function main() {
+//     await mongoose.connect("mongodb://127.0.0.1:27017/scam-call")
+// };
 
 
 
 app.get("/",(req,res)=>{
     res.render("index.ejs")
 });
+
+
+
+
+let msg="hello send me your pssword";
+
+  async function openAI(){
+            
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4o-mini",
+    store: true,
+    messages: [
+        { "role": "system", "content": "Classify the given text as either 'Suspicious' or 'Non-Suspicious'. Only return one of these two words." },
+        { "role": "user", "content": msg }
+    ],
+    
+  
+  });
+   responce=completion.choices[0].message.content;
+
+  
+ console.log(responce);
+
+
+
+}
+
+openAI()
+
 
 app.listen(port, () => {
     console.log(`listning on ${port}`)
