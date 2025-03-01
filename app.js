@@ -95,7 +95,7 @@ app.get("/",(req,res)=>{
 
 //gemini ai ai
   async function geminiAI() {
-    const genAI = new GoogleGenerativeAI("AIzaSyAyEmH1mZmanVJQNI8oes_Vj3DbxG9hDpE"); 
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY); 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `Analyze the following text and determine whether it is suspicious. make sure basic details like name and otehr witch does not harm consider.Consider phishing, scams, misleading information, or malicious intent. Respond with only one word: 'Suspicious' or 'Safe'. Text: ${text}`;
