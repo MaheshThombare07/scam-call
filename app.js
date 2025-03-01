@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 const openai = new OpenAI({
-    apiKey: "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",
+    apiKey: "Open_ai_api",
   });
   
   
