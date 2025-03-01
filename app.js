@@ -1,22 +1,14 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-
 const mongoose = require("mongoose");
 
-
-
 const port = 3000;
-
-
-
-
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"))
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-
 
 
 main().then(() => {
@@ -69,6 +61,10 @@ async function main() {
 
 
 
+
+app.get("/",(req,res)=>{
+    res.render("index.ejs")
+});
 
 app.listen(port, () => {
     console.log(`listning on ${port}`)
