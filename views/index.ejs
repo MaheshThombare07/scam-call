@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h2>Upload an Audio File</h2>
-        <form action="/transcribe" method="POST" enctype="multipart/form-data">
+        <form action="/" method="POST" enctype="multipart/form-data">
             <input type="file" name="audio" accept="audio/*" required>
             <br><br>
             <button type="submit">Upload & Transcribe</button>
@@ -23,8 +23,17 @@
         <div>
             <h3>Transcription:</h3>
             <p><%= transcription %></p>
+            <h1 id="flag"><%= sendr %></h1>
         </div>
         <% } %>
+
+       
     </div>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+<script src="/js/script.js">
+   
+</script>
 </body>
 </html>
